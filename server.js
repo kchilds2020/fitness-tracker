@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const users = require('./api/user');
+const workouts = require('./api/workouts');
 const routes = require('./routes/routing')
 let bodyParser = require('body-parser');
 const mongoose =require('mongoose');
@@ -37,6 +38,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname,'client/build')));
 
 app.use(users);
+app.use(workouts)
 app.use(routes);
  //app.use(express.static(path.join(__dirname,'client/build')));
 

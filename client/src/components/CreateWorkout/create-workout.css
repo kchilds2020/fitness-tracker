@@ -1,0 +1,28 @@
+.sf-container{
+    padding: 20px;
+}
+
+.input-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.page-shade{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0, 0.8);
+    width: 100vw;
+    height: 100vh;
+}
+
+.workout-form{
+    position: fixed;
+    top: 100px; /* or whatever top you need */
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}

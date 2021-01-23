@@ -6,7 +6,7 @@ var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 //get all users
-router.get('/api/get/users/', (req,res) => {
+router.get('/api/users/', (req,res) => {
     /* console.log(req.params.id) */
     User.find()
     .then(users => {
@@ -16,7 +16,7 @@ router.get('/api/get/users/', (req,res) => {
 })
 
 //get user with id
-router.get('/api/get/users/:id', (req,res) => {
+router.get('/api/users/:id', (req,res) => {
     /* console.log(req.params.id) */
     User.findOne({_id: req.params.id})
     .then(user => {
@@ -26,7 +26,7 @@ router.get('/api/get/users/:id', (req,res) => {
 })
 
 //update user based on id
-router.post('/api/post/update-user', async (req, res) => {
+router.post('/api/update-user', async (req, res) => {
     try{
         const response = await User.updateOne({_id: req.body._id}, {
             $set: {
@@ -40,7 +40,7 @@ router.post('/api/post/update-user', async (req, res) => {
 });
 
 //delete user by id
-router.post('/api/post/delete-user/', async (req,res) => {
+router.post('/api/delete-user/', async (req,res) => {
     try{
         let response = await User.deleteOne({_id: req.body._id})
         res.json(response)

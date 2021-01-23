@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import axios from 'axios'
 import {UserContext} from '../UserContext'
+import './nav-bar.css'
 
 function NavigationBar() {
 
@@ -30,6 +31,7 @@ function NavigationBar() {
         window.location.href = '/login'
     }
     return (
+        <div className="overlay">
             <Navbar collapseOnSelect bg="dark" variant="dark" expand="xl">
                 <Navbar.Brand href="/home">Mern Template</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -40,7 +42,7 @@ function NavigationBar() {
                                 <Button variant="primary" onClick={login} style={{margin: "0px 20px"}}>Login</Button>
                             </> :
                             <>
-                                <Nav.Link className={active === '/home' ? "active" : ""} href ="/home">Home</Nav.Link>
+                                <Nav.Link className={active === '/dashboard' ? "active" : ""} href ="/dashboard">Dashboard</Nav.Link>
                                 <NavDropdown.Divider />
                                 <Button variant="danger" onClick={logout} style={{margin: "0px 20px"}}>Logout</Button>
                             </>
@@ -49,6 +51,7 @@ function NavigationBar() {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
+            </div>
     )
 }
 
