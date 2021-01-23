@@ -13,9 +13,9 @@ const Landing = () => {
     }, [])
 
     return(
-        <div>
-            LANDING
-        </div>
+        <h1>
+            Fitness Tracker
+        </h1>
     );
 };
 

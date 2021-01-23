@@ -9,9 +9,8 @@ const Dashboard = () => {
     return(
         user ?
             <>
-                <div>email: {user.email}</div>
-                <div>firstname: {user.firstname}</div>
-                <div>lastname: {user.lastname}</div>
+                <h1>Hello, {user.firstname}!</h1>
+                <button onClick={() => window.location = '/create-workout'}>Create a workout</button>
             </> : <></>
     );
 }
