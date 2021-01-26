@@ -1,11 +1,17 @@
 const express = require('express');
 const WorkoutPlan = require('../models/WorkoutPlan');
 const router = express.Router();
-const User = require('../models/WorkoutPlan');
+const User = require('../models/User');
 
 
 //register user
 router.post('/api/create-plan', async (req, res) => {
+
+    let data = {
+        title: req.body.title,
+        workouts: req.body.workouts,
+        created_by: req.body.created_by
+    }
 
     try{
         const plan = await WorkoutPlan.create({
@@ -13,7 +19,17 @@ router.post('/api/create-plan', async (req, res) => {
             workouts: req.body.workouts,
             created_by: req.body.created_by
         })
-        res.json(plan)
+        const user = await User.findOne({_id: req.body.created_by})
+        console.log(user)
+        let workouts = user.workoutplan
+        workouts.push(data)
+        const response = await User.updateOne({_id: req.body.created_by}, {
+            $set: {
+                workoutplan: workouts
+            }
+        })
+        
+        res.json("success")
         
     }catch(error){
         console.log(error)
@@ -40,6 +56,16 @@ router.get('/api/workout-plans/:id', (req,res) => {
     .then(plan => {
         /* console.log(user) */
         res.json(plan)})
+    .catch(err => console.log(err))
+})
+
+//get user with id
+router.get('/api/user-plans/:id', (req,res) => {
+    /* console.log(req.params.id) */
+    WorkoutPlan.find({created_by: req.params.id})
+    .then(plans => {
+        /* console.log(user) */
+        res.json(plans)})
     .catch(err => console.log(err))
 })
 

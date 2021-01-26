@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
 import {UserContext} from '../UserContext'
 
 const Dashboard = () => {
@@ -10,7 +11,10 @@ const Dashboard = () => {
         user ?
             <>
                 <h1>Hello, {user.firstname}!</h1>
-                <button onClick={() => window.location = '/create-workout'}>Create a workout</button>
+                {
+                    user.workoutplan.length > 0 ? user.workoutplan.map((element,index) => <div key={index}>{element.title}</div>) : <></>
+                }
+                <button onClick={() => window.location = '/create-workout'}>Create a Plan</button>
             </> : <></>
     );
 }

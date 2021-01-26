@@ -18,8 +18,8 @@ const User = new mongoose.Schema({
         maxlength: [999, 'please pick a valid weight']
     },
     workoutplan:{
-        type: Object,
-        default: {},
+        type: Array,
+        default: [],
         required: false
     }
 },

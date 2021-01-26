@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {UserContext} from '../UserContext'
 import axios from 'axios'
 import './create-workout.css'
@@ -18,11 +18,17 @@ const CreateWorkout = () => {
     const [data, setData] = useState({
         title: '',
         workouts: [],
-        created_by: user ? user._id : ''
+        created_by: ''
     })
+    useEffect(() => {
+        if(user){
+            setData({...data, created_by: user._id})
+        }
+    }, [user])
 
     const addWorkout = e => {
         e.preventDefault()
+        console.log('TRIGGERED')
 
         let temp = data.workouts;
         temp.push({ name: workoutName, sets: workoutSets, reps: workoutReps })
@@ -66,7 +72,7 @@ const CreateWorkout = () => {
                     <input id="wplan" type='text' placeholder = 'Title' value = {data.title} onChange = {(e) => setData({...data, title:     e.target.value})}/>
                 </div>
                 {data.workouts.length > 0 ? data.workouts.map((element,index) => 
-                <div style={{display:'flex', justifyContent: 'space-between', margin: '3px'}}>{element.name}, {element.sets} x {element.reps} <Button id={index} variant="outline-danger" onClick={removeItem}>remove</Button></div>) : <></>}
+                <div key={index} style={{display:'flex', justifyContent: 'space-between', margin: '3px'}}>{element.name}, {element.sets} x {element.reps} <Button id={index} variant="outline-danger" onClick={removeItem}>remove</Button></div>) : <></>}
                 {WFVisibility === false ? <Button style={{marginTop: '5px'}} variant="secondary" onClick = {() => setWFVisibility(true)} block>Add Workout</Button> : <></>}
                 { data.workouts.length > 0 ? <Button onClick={addPlanToDB} block>Submit</Button> : <></>}
             </div>
@@ -90,7 +96,7 @@ const CreateWorkout = () => {
                             <label style={{margin: '0px', color: 'white'}}  htmlFor="wreps">Workout Reps</label>
                             <input id="wreps" type='number' placeholder = 'Number of Reps' value = {workoutReps} onChange = {(e) => setWorkoutReps(e.target.value)}/>
                             </div>
-                            <Button style={{marginTop: '8px'}}variant="primary" block>Add</Button>
+                            <Button type="submit" style={{marginTop: '8px'}} variant="primary" block>Add</Button>
                             <Button type="button" variant="secondary" onClick={() => cancelWorkout()} block>Cancel</Button>
                         </form></div> : <></>
                 }

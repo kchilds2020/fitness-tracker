@@ -33,7 +33,7 @@ function NavigationBar() {
     return (
         <div className="overlay">
             <Navbar collapseOnSelect bg="dark" variant="dark" expand="xl">
-                <Navbar.Brand href="/home">Mern Template</Navbar.Brand>
+                <Navbar.Brand href="/dashboard">Mern Template</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
                     <Nav className="justify-content-end">
