@@ -33,6 +33,7 @@ router.post('/api/update-user', async (req, res) => {
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 email: req.body.email,
+                workoutplan: req.body.workoutplan
             }
         })
         res.json(response)

@@ -8,6 +8,7 @@ import Register from './components/Register/Register';
 import PrivateRoute from './components/PrivateRoute'
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import CreateWorkout from './components/CreateWorkout/CreateWorkout'
+import StartWorkout from './components/StartWorkout/StartWorkout'
 import {CookiesProvider} from 'react-cookie'
 import { UserContext } from './components/UserContext';
 import axios from 'axios'
@@ -47,6 +48,10 @@ function App() {
 
               <PrivateRoute path="/create-workout" user={user} setUser={setUser}>     
                 <Route exact strict component={CreateWorkout}/>
+              </PrivateRoute>
+
+              <PrivateRoute path="/start-workout" user={user} setUser={setUser}>     
+                <Route exact strict component={StartWorkout}/>
               </PrivateRoute>
         
               <UserContext.Provider value={{user}}>

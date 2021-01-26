@@ -31,7 +31,7 @@ const CreateWorkout = () => {
         console.log('TRIGGERED')
 
         let temp = data.workouts;
-        temp.push({ name: workoutName, sets: workoutSets, reps: workoutReps })
+        temp.push({ name: workoutName, sets: workoutSets, reps: workoutReps, maxreps: workoutReps + 3 })
         setData({...data, workouts: temp})
         setWorkoutName('')
         setWorkoutReps(0)
@@ -49,10 +49,18 @@ const CreateWorkout = () => {
         setData({...data, workouts: temp})
     }
 
-    const addPlanToDB = e => {
+    const addPlanToDB = async e => {
         e.preventDefault()
 
-        axios.post('/api/create-plan', data)
+        try{
+            let response = await axios.post('/api/create-plan', data)
+            console.log(response)
+            if(response.data === "success"){
+                window.location = "/dashboard"
+            }
+        }catch(error){
+            console.log(error)
+        }
 
         console.log(data)
     }
