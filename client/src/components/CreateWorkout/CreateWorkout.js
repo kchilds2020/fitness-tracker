@@ -31,7 +31,7 @@ const CreateWorkout = () => {
         console.log('TRIGGERED')
 
         let temp = data.workouts;
-        temp.push({ name: workoutName, sets: workoutSets, reps: workoutReps, maxreps: workoutReps + 3 })
+        temp.push({ name: workoutName, sets: workoutSets, reps: workoutReps, maxreps: `${parseInt(workoutReps)+3}` })
         setData({...data, workouts: temp})
         setWorkoutName('')
         setWorkoutReps(0)

@@ -36,25 +36,25 @@ const StartWorkout = () => {
         if(!workout.workouts[counter].weight){
             if(weight){
                 workout.workouts[counter].weight = weight
-                setCounter(counter+1)
             }else{
                 alert("Please enter an initial weight")
             }
-        }else{
-            setCounter(counter+1)
         }
+        updateWorkout()
+
+        setCounter(counter+1)
     }
 
     const updateWorkout = async () => {
         let data = user
         data.workoutplan[workoutID] = workout
-        data.workoutplan[workoutID].workouts.forEach(element => {
-            if(element.maxreps === element.reps){
-                element.weight = `${parseInt(element.weight)+10}`
-            }else{
-                element.reps = `${parseInt(element.reps) + 1}`
-            }
-        })
+        if(parseInt(data.workoutplan[workoutID].workouts[counter].maxreps) <= parseInt(data.workoutplan[workoutID].workouts[counter].reps)){
+            data.workoutplan[workoutID].workouts[counter].weight = `${parseInt(data.workoutplan[workoutID].workouts[counter].weight)+10}`
+            data.workoutplan[workoutID].workouts[counter].reps = `${parseInt(data.workoutplan[workoutID].workouts[counter].reps)-3}`
+        }else{
+            data.workoutplan[workoutID].workouts[counter].reps = `${parseInt(data.workoutplan[workoutID].workouts[counter].reps)+1}`
+        }
+
         try{
             let response = await axios.post(`/api/update-user`,data)
             console.log(response)
@@ -74,16 +74,16 @@ const StartWorkout = () => {
             {workout && visible && counter < workout.workouts.length ? 
             <div>
                 <div>{workout.workouts[counter].name}</div>
-                <div>{workout.workouts[counter].sets}</div>
-                <div>{workout.workouts[counter].reps}</div>
-                <div>{workout.workouts[counter].weight ? workout.workouts[counter].weight : <input type="number" placeholder="Enter Initial Weight" onChange={e => setWeight(e.target.value)}/>}</div>
+                <div>Sets: {workout.workouts[counter].sets}</div>
+                <div>Reps: {workout.workouts[counter].reps}</div>
+                <div>Weight: {workout.workouts[counter].weight ? workout.workouts[counter].weight : <input type="number" placeholder="Enter Initial Weight" onChange={e => setWeight(e.target.value)}/>}</div>
                 <Button onClick={validateWeight}>Complete</Button>
             </div>: <></>}
 
             {workout && visible && counter === workout.workouts.length ? 
             <div>
                 <h1 className="workout-title">{workout.title} Completed!</h1> 
-                <Button onClick={updateWorkout}>Go To Dashboard</Button>
+                <Button onClick={() => {window.location = '/dashboard'}}>Go To Dashboard</Button>
             </div>: <></>}
         </div>
     )
